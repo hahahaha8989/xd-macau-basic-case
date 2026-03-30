@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XD Macau Basic Case</title>
+  <meta name="description" content="章节型静态网页目录，支持检索、摘要浏览与精读阅读。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html">XD Macau Basic Case</a>
+      <nav class="top-nav">
+        <a href="#catalog">案件目录</a>
+        <a href="#about">阅读说明</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-panel">
+        <div class="hero-copy">
+          <div class="eyebrow">GitHub Pages Static Archive</div>
+          <h1>章节文稿目录与精读页面</h1>
+          <p>沿用参考站的“总目录 + 单篇阅读”信息架构，并升级为更适合长文阅读的静态网页。首页可检索条目、查看编号、主题与摘要，正文页则提供侧边目录、锚点跳转与更清晰的段落排版。</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card"><span>条目数</span><strong>01</strong></div>
+          <div class="stat-card"><span>内容类型</span><strong>章节文稿</strong></div>
+          <div class="stat-card"><span>发布方式</span><strong>GitHub Pages</strong></div>
+        </div>
+      </section>
+
+      <section class="controls-panel" id="catalog">
+        <div>
+          <p class="section-label">目录</p>
+          <h2>案件 / 章节索引</h2>
+          <p class="section-note">展示编号、主题、来源与摘要，可直接进入全文阅读。</p>
+        </div>
+        <label class="search-box">
+          <span>检索</span>
+          <input id="search-input" type="search" placeholder="输入标题、主题、关键词、摘要">
+        </label>
+      </section>
+
+      <section>
+        <div class="results-bar">
+          <span id="result-count">共 1 条</span>
+          <span>当前分类：全部</span>
+        </div>
+        <div class="card-grid" id="card-grid">
+          <article class="record-card" data-search="CASE-CH04 第四章 落实新质生产力重要论述的现实路径 新质生产力现实路径与制度落地 任何思想理论体系都根植于特定的社会实践土壤，并在指导实践的过程中不断检验其真理性，从而彰显其时代价值与生命力，实现从初步构建到系统完善的历史演进。习近平关于新质生产力的重要论述为推动新时代高质量发展提供了鲜明的实践指向，应以全面深化改革推动这一论述的落地落实。具体来讲，可从深化科技体制改革，筑牢发展新质生产力的科技支撑；建设现代化产业体系，增强发展新质生产力的载体支撑；深化教育与人才机制改革，夯实发展新质生产力的人才基础；扩大高水平对外开放，营造发展新质生产力的有利环境四个方面着手。 新质生产力 科技体制改革 现代化产业体系 教育与人才机制 高水平对外开放">
+            <p class="record-type">章节文稿</p>
+            <h3><a href="chapter-04.html">第四章 落实新质生产力重要论述的现实路径</a></h3>
+            <dl class="meta-list">
+              <div><dt>编号</dt><dd>CASE-CH04</dd></div>
+              <div><dt>主题</dt><dd>新质生产力现实路径与制度落地</dd></div>
+              <div><dt>来源</dt><dd>第四章.docx</dd></div>
+              <div><dt>年份</dt><dd>2026</dd></div>
+            </dl>
+            <p class="record-abstract">任何思想理论体系都根植于特定的社会实践土壤，并在指导实践的过程中不断检验其真理性，从而彰显其时代价值与生命力，实现从初步构建到系统完善的历史演进。习近平关于新质生产力的重要论述为推动新时代高质量发展提供了鲜明的实践指向，应以全面深化改革推动这一论述的落地落实。具体来讲，可从深化科技体制改革，筑牢发展新质生产力的科技支撑；建设现代化产业体系，增强发展新质生产力的载体支撑；深化教育与人才机制改革，夯实发展新质生产力的人才基础；扩大高水平对外开放，营造发展新质生产力的有利环境四个方面着手。</p>
+            <div class="card-footer">
+              <div class="pill-row">
+                <span class="pill">新质生产力</span><span class="pill">科技体制改革</span><span class="pill">现代化产业体系</span><span class="pill">教育与人才机制</span><span class="pill">高水平对外开放</span>
+              </div>
+              <a class="read-link" href="chapter-04.html">阅读全文</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="about-panel" id="about">
+        <div>
+          <p class="section-label">阅读说明</p>
+          <h2>页面结构</h2>
+        </div>
+        <div class="about-grid">
+          <article>
+            <h3>目录视图</h3>
+            <p>适合快速浏览文稿主题、摘要和关键词，保留参考站清晰的检索和卡片入口逻辑。</p>
+          </article>
+          <article>
+            <h3>正文视图</h3>
+            <p>使用侧边目录、段落留白、章节分隔和高对比阅读样式，让长文在手机和桌面端都更容易阅读。</p>
+          </article>
+          <article>
+            <h3>可公开访问</h3>
+            <p>站点文件是纯静态 HTML、CSS、JS，可直接发布到 GitHub Pages 并通过公网链接访问。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
