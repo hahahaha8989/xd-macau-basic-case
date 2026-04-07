@@ -5,13 +5,28 @@ import html
 import json
 import re
 import subprocess
+from datetime import datetime
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-DOCX_PATH = ROOT / "第四章.docx"
+PREFERRED_DOCX_NAMES = [
+    "第四章  落实新质生产力重要论述的现实路径.docx",
+    "第四章.docx",
+]
 ASSETS_DIR = ROOT / "assets"
 ARTICLE_SLUG = "chapter-04"
+
+
+def choose_docx_path() -> Path:
+    for name in PREFERRED_DOCX_NAMES:
+        candidate = ROOT / name
+        if candidate.exists():
+            return candidate
+    raise FileNotFoundError("No supported chapter docx file was found.")
+
+
+DOCX_PATH = choose_docx_path()
 
 
 def run_textutil(docx_path: Path) -> str:
@@ -79,7 +94,14 @@ def parse_document(text: str) -> dict:
         target = current_subsection if current_subsection else ensure_section()
         target["paragraphs"].append(line)
 
-    keywords = ["新质生产力", "科技体制改革", "现代化产业体系", "教育与人才机制", "高水平对外开放"]
+    keywords = [
+        "新质生产力",
+        "体制机制",
+        "现代化产业体系",
+        "教育与人才机制",
+        "社会主义市场经济体制",
+    ]
+    updated_at = datetime.fromtimestamp(DOCX_PATH.stat().st_mtime).strftime("%Y-%m-%d")
     return {
         "id": "CASE-CH04",
         "title": title,
@@ -87,9 +109,13 @@ def parse_document(text: str) -> dict:
         "abstract": abstract,
         "journal": "章节型文稿整理",
         "year": "2026",
+        "updated_at": updated_at,
         "source_file": DOCX_PATH.name,
         "slug": ARTICLE_SLUG,
         "keywords": keywords,
+        "section_count": len(sections),
+        "subsection_count": sum(len(section["subsections"]) for section in sections),
+        "section_titles": [section["title"] for section in sections],
         "sections": sections,
     }
 
@@ -171,7 +197,7 @@ def render_article(doc: dict) -> str:
           <div><span>编号</span><strong>{html.escape(doc["id"])}</strong></div>
           <div><span>主题</span><strong>{html.escape(doc["theme"])}</strong></div>
           <div><span>来源文件</span><strong>{html.escape(doc["source_file"])}</strong></div>
-          <div><span>整理类型</span><strong>{html.escape(doc["journal"])}</strong></div>
+          <div><span>更新日期</span><strong>{html.escape(doc["updated_at"])}</strong></div>
         </div>
         <ul class="keyword-list">{keyword_tags}</ul>
       </section>
@@ -198,6 +224,9 @@ def render_article(doc: dict) -> str:
 
 
 def render_index(doc: dict) -> str:
+    section_preview = "".join(
+        f'<li>{html.escape(title)}</li>' for title in doc["section_titles"]
+    )
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -225,12 +254,12 @@ def render_index(doc: dict) -> str:
         <div class="hero-copy">
           <div class="eyebrow">GitHub Pages Static Archive</div>
           <h1>章节文稿目录与精读页面</h1>
-          <p>沿用参考站的“总目录 + 单篇阅读”信息架构，并升级为更适合长文阅读的静态网页。首页可检索条目、查看编号、主题与摘要，正文页则提供侧边目录、锚点跳转与更清晰的段落排版。</p>
+          <p>沿用参考站的“总目录 + 单篇阅读”信息架构，并升级为更适合中文长文阅读的静态网页。首页可检索条目、查看编号、主题与摘要，正文页则提供侧边目录、锚点跳转与更清晰的段落排版。</p>
         </div>
         <div class="hero-stats">
           <div class="stat-card"><span>条目数</span><strong>01</strong></div>
-          <div class="stat-card"><span>内容类型</span><strong>章节文稿</strong></div>
-          <div class="stat-card"><span>发布方式</span><strong>GitHub Pages</strong></div>
+          <div class="stat-card"><span>一级章节</span><strong>{doc["section_count"]:02d}</strong></div>
+          <div class="stat-card"><span>二级小节</span><strong>{doc["subsection_count"]:02d}</strong></div>
         </div>
       </section>
 
@@ -259,9 +288,15 @@ def render_index(doc: dict) -> str:
               <div><dt>编号</dt><dd>{html.escape(doc["id"])}</dd></div>
               <div><dt>主题</dt><dd>{html.escape(doc["theme"])}</dd></div>
               <div><dt>来源</dt><dd>{html.escape(doc["source_file"])}</dd></div>
-              <div><dt>年份</dt><dd>{html.escape(doc["year"])}</dd></div>
+              <div><dt>更新</dt><dd>{html.escape(doc["updated_at"])}</dd></div>
             </dl>
             <p class="record-abstract">{html.escape(doc["abstract"])}</p>
+            <div class="outline-box">
+              <p class="outline-label">结构预览</p>
+              <ul class="outline-list">
+                {section_preview}
+              </ul>
+            </div>
             <div class="card-footer">
               <div class="pill-row">
                 {''.join(f'<span class="pill">{html.escape(keyword)}</span>' for keyword in doc["keywords"])}

@@ -285,6 +285,31 @@ a {
   margin-top: 20px;
 }
 
+.outline-box {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(255, 249, 240, 0.92), rgba(245, 234, 219, 0.72));
+  border: 1px solid rgba(82, 37, 17, 0.09);
+}
+
+.outline-label {
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.74rem;
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.outline-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  display: grid;
+  gap: 8px;
+}
+
 .pill-row,
 .keyword-list {
   display: flex;
@@ -355,6 +380,10 @@ a {
 
 .keyword-list {
   margin-top: 20px;
+}
+
+.article-hero .keyword-list {
+  margin-top: 24px;
 }
 
 .article-layout {
